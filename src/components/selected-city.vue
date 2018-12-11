@@ -20,7 +20,7 @@
                     <b>Precipitation volume for last 3 hours</b> - {{CurrentData.rainH}}mm</li>
             </ul>
         </div>
-        <div class="dropDownSelect">
+        <div class="dropDownSelect" ref="posLeftParent">
           <span class="borderBottom" :style="{width:PosWidth+'px', left:PosLeft+'px', opacity:opacity}"></span>
           <ul type="none">
             <li ref="active" @click="filterDays('today', $event.target)">Today</li>
@@ -138,7 +138,7 @@ export default {
     setData: function(data) {
       // Border Bottom Style and position animating
       this.PosWidth = this.$refs.active.getBoundingClientRect().width;
-      this.PosLeft = this.$refs.active.getBoundingClientRect().left;
+      this.PosLeft = this.$refs.active.getBoundingClientRect().left -this.$refs.posLeftParent.getBoundingClientRect().left;
       // _________________________________________
 
       this.commonData = data;
@@ -337,7 +337,7 @@ export default {
         this.addClassSelectedItem = true;
       }
       this.PosWidth = th.getBoundingClientRect().width;
-      this.PosLeft = th.getBoundingClientRect().left;
+      this.PosLeft = th.getBoundingClientRect().left -this.$refs.posLeftParent.getBoundingClientRect().left;
       this.SliderTranslate = 0;
       
       setTimeout(()=>{
