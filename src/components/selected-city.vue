@@ -186,17 +186,19 @@ export default {
       setTimeout(() => {
         this.heightBadge = this.$refs.HeightBadge[0].getBoundingClientRect().height
       }, 100);
-      this.slideIndex = this.MainSliderWrapWidth/this.SliderItemsWidth;
+      
       this.hideMoreWeatherBottom = false;
       this.hideSecondParts = this.hideMoreWeatherBottom;
       this.BooleanMultipleItemWeatherClick = false;
       this.addClassSelectedItem = false;
       setTimeout(()=>{
           this.badgeCount ()
+          this.slideIndex = this.MainSliderWrapWidth/this.SliderItemsWidth;
       }, 10)
     },
 
     sliderLeft(){
+   
       if(this.slideIndex > this.MainSliderWrapWidth/this.SliderItemsWidth){
         this.slideIndex--;
         this.SliderTranslate += this.SliderItemsWidth;
@@ -212,6 +214,7 @@ export default {
     
     sliderRight(){
       this.MainSliderWrapWidth = this.$refs.widthMainSlider.getBoundingClientRect().width;
+       console.log(this.slideIndex, this.commonBadgesCount)
       if(this.slideIndex < this.commonBadgesCount){
         this.slideIndex++;
         this.SliderTranslate-=this.SliderItemsWidth;
@@ -246,7 +249,7 @@ export default {
           this.badgesCountShows = this.MainSliderWrapWidth/1
           this.SliderItemsWidth = this.badgesCountShows;
         }
-        this.slideIndex = this.MainSliderWrapWidth/this.SliderItemsWidth;
+        
     },
 
     filterDays(dayCount, th){
@@ -254,7 +257,7 @@ export default {
         this.changesData = this.allListHour
         this.commonBadgesCount = Math.round(this.changesData.length/5);
         this.hideMoreWeatherBottom = false;
-        this.hideSecondParts = true;
+        this.hideSecondParts = false;
         this.BooleanMultipleItemWeatherClick = false;
         this.addClassSelectedItem = false;
       }
@@ -300,10 +303,10 @@ export default {
 
         for(let l = 0; l< arrayDay.length; l++){
             if(arrayDay[l].length == 8){
-              createObj(l, 0, 4)
+              createObj(l, 0, 3)
             }
             else if(arrayDay[l].length >= 4){
-              createObj(l, (arrayDay[0].length - 1), 4)
+              createObj(l, (arrayDay[0].length - 1), 3)
             }
             else{
               let sysN = 0, sysD = 0, sysRes;
@@ -336,8 +339,10 @@ export default {
       this.PosWidth = th.getBoundingClientRect().width;
       this.PosLeft = th.getBoundingClientRect().left;
       this.SliderTranslate = 0;
+      
       setTimeout(()=>{
         this.badgeCount ()
+         this.slideIndex = this.MainSliderWrapWidth/this.SliderItemsWidth;
       }, 100)
     },
     showMoreWeatherBottom(indexItem){
@@ -366,6 +371,7 @@ export default {
           this.SliderTranslate = 0;
           this.MainSliderWrapWidth = this.$refs.widthMainSlider.getBoundingClientRect().width;
           this.badgeCount();
+           this.slideIndex = this.MainSliderWrapWidth/this.SliderItemsWidth;
         });
 		})
 	},
@@ -641,6 +647,14 @@ export default {
           width: 100%;
           overflow-x: scroll;
           overflow-y: hidden;
+    }
+    .button-next{
+      right: 0px !important;
+      opacity: 1 !important;
+    }
+    .button-prev{
+      left: 0px !important;
+      opacity: 1 !important;
     }
   }
 </style>
